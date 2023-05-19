@@ -34,45 +34,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('dashboard');
-        }
-
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
-    }
-
-    /**
-     * Handle an authentication attempt.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function register(RegisterRequest $request)
-    {
-        if ($request->isMethod('GET')) {
-            return view('cms::register.index');
-        }
-    }
-
-    /**
-     * Handle an authentication attempt.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function doRegister(RegisterRequest $request)
-    {
-        if (!$request->validate()) {
-            return view('cms::register.index');
-        }
-        $user = new User();
-        $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('password'));
-        $user->save();
-
-        if ($user->save()) {
-            return redirect()->intended('login');
+            return redirect()->intended('cms.dashboard');
         }
 
         return back()->withErrors([

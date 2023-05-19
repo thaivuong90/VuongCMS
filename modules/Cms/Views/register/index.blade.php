@@ -17,16 +17,17 @@
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6" action="{{ route('doRegister') }}" method="post">
-        @if (isset($errors) && $errors->any())
-        <div class="alert alert-danger">
-          <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-          </ul>
-        </div>
-        @endif
+      @if (isset($errors) && $errors->any())
+      <div class="alert alert-danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+      @endif
+      <form class="space-y-6" action="{{ route('cms.register.store') }}" method="post">
+        @csrf
         <div>
           <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
           <div class="mt-2">
@@ -52,7 +53,7 @@
       </form>
 
       <p class="mt-10 text-center text-sm text-gray-500">
-        <a href="{{ route('login') }}" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Login</a>
+        <a href="{{ route('cms.login') }}" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Login</a>
       </p>
     </div>
   </div>
