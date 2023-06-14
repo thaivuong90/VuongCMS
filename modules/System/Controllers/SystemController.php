@@ -73,18 +73,22 @@ class SystemController extends Controller
       $system = new System($validated);
       $system->save();
 
-      $user = new Account([
-        'name' => 'Admin Of ' . $validated['name'],
-        'email' => $validated['email'],
-        'password' => bcrypt($validated['password']),
-      ]);
-      $user->save();
+      if ($system) {
+        $user = new Account([
+          'name' => 'Admin Of ' . $validated['name'],
+          'email' => $validated['email'],
+          'password' => bcrypt($validated['password']),
+          'system_id' => $system->getKey(),
+        ]);
+        $user->save();
+      }
+      
       DB::commit();
       return redirect(route('system.confirmation'))->withInput(['email' => $validated['email']]);
     } catch (\Exception $e) {
       DB::rollBack();
       Log::error($e);
-      return redirect()->back(500);
+      return redirect()->back();
     }
   }
 
@@ -101,48 +105,20 @@ class SystemController extends Controller
       $credentials = $request->validate([
         'email' => ['required', 'email'],
         'password' => ['required'],
+        'system_id' => ['required']
       ]);
 
-      if (Auth::guard('system')->attempt($credentials)) {
-        Log::info($credentials);
+      if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
 
-        return redirect()->intended(route('system.dashboard'));
+        return redirect()->intended(system_route('system.dashboard'));
       }
 
       return back()->withErrors([
         'email' => 'The provided credentials do not match our records.',
       ]);
     }
-    return view('system::login');
-  }
-
-  /**
-   * Handle an authentication attempt.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
-  public function loginSystem(Request $request)
-  {
-    if ($request->isMethod('post')) {
-
-      $credentials = $request->validate([
-        'email' => ['required', 'email'],
-        'password' => ['required'],
-      ]);
-
-      if (Auth::guard('system')->attempt($credentials)) {
-        $request->session()->regenerate();
-
-        return redirect()->intended('system.dashboard');
-      }
-
-      return back()->withErrors([
-        'email' => 'The provided credentials do not match our records.',
-      ]);
-    }
-    return view('system::login');
+    return view('system::login', ['system_id' => $request->system_id]);
   }
 
   /**
@@ -155,6 +131,6 @@ class SystemController extends Controller
  
     $request->session()->regenerateToken();
 
-    return redirect(route('system.login'));
+    return redirect(system_route('system.login'));
   }
 }

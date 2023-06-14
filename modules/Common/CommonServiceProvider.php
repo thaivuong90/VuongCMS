@@ -3,8 +3,6 @@
 namespace VuongCMS\Common;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Routing\Router;
-use VuongCMS\Common\Middlewares\SystemAuth;
 
 class CommonServiceProvider extends ServiceProvider
 {
@@ -35,8 +33,5 @@ class CommonServiceProvider extends ServiceProvider
         ], 'common.assets');
 
         $this->loadMigrationsFrom(__DIR__ . '/Migrations', 'system');
-
-        $router = $this->app->make(Router::class);
-        $router->aliasMiddleware('system.auth', SystemAuth::class);
     }
 }

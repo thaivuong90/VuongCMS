@@ -4,8 +4,8 @@ namespace VuongCMS\System;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Log;
+use VuongCMS\System\Middlewares\CheckAuth;
+use VuongCMS\System\Middlewares\CheckSystem;
 
 class SystemServiceProvider extends ServiceProvider
 {
@@ -35,5 +35,9 @@ class SystemServiceProvider extends ServiceProvider
         // ]);
         // $router = $this->app->make(Router::class);
         // $router->aliasMiddleware('install.cms', Install::class);
+
+        $router = $this->app->make(Router::class);
+        $router->aliasMiddleware('check.auth', CheckAuth::class);
+        $router->aliasMiddleware('check.system', CheckSystem::class);
     }
 }

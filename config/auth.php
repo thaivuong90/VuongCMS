@@ -14,9 +14,7 @@ return [
     */
 
     'defaults' => [
-        // 'guard' => 'web',
-        // 'passwords' => 'users',
-        'guard' => 'system',
+        'guard' => 'web',
         'passwords' => 'accounts',
     ],
 
@@ -40,12 +38,8 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'accounts',
         ],
-        'system' => [
-            'driver' => 'session',
-            'provider' => 'accounts'
-        ]
     ],
 
     /*
@@ -71,9 +65,8 @@ return [
             'model' => \App\Models\User::class,
         ],
         'accounts' => [
-            // 'driver' => 'eloquent',
-            // 'model' => \VuongCMS\Common\Models\Account::class,
-            'driver' => 'system'
+            'driver' => 'accounts',
+            'model' => \VuongCMS\Common\Models\Account::class,
         ],
 
         // 'users' => [

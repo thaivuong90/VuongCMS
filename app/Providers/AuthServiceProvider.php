@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use VuongCMS\System\SystemUserProvider;
+use VuongCMS\System\AccountUserProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -28,8 +28,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         //
-        Auth::provider('system', function ($app, array $config) {
-            return new SystemUserProvider();
+        Auth::provider('accounts', function ($app, array $config) {
+            return new AccountUserProvider($app->make('hash'), $config['model']);
         });
     }
 }
