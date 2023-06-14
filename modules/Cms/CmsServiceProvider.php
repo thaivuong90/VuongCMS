@@ -1,6 +1,6 @@
 <?php
 
-namespace VuongCMS\Cms\Providers;
+namespace VuongCMS\Cms;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\Router;
@@ -27,19 +27,9 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // php artisan vendor:publish --tag=cms.assets --force
-        $this->publishes([
-            __DIR__.'/../Assets' => public_path('cms'),
-        ], 'cms.assets');
-
-        // php artisan vendor:publish --tag=cms.lang --force
-        $this->publishes([
-            __DIR__.'/../Lang' => resource_path('lang'),
-        ], 'cms.lang');
-
         // Load resource
-        $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');
-        $this->loadViewsFrom(__DIR__ . '/../Views', 'cms');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/web.php');
+        $this->loadViewsFrom(__DIR__ . '/Views', 'cms');
         $router = $this->app->make(Router::class);
         $router->aliasMiddleware('auth.cms', Auth::class);
     }

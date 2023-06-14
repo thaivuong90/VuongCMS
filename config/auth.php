@@ -14,8 +14,10 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        // 'guard' => 'web',
+        // 'passwords' => 'users',
+        'guard' => 'system',
+        'passwords' => 'accounts',
     ],
 
     /*
@@ -40,6 +42,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'system' => [
+            'driver' => 'session',
+            'provider' => 'accounts'
+        ]
     ],
 
     /*
@@ -62,7 +68,12 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => \VuongCMS\Cms\Models\User::class,
+            'model' => \App\Models\User::class,
+        ],
+        'accounts' => [
+            // 'driver' => 'eloquent',
+            // 'model' => \VuongCMS\Common\Models\Account::class,
+            'driver' => 'system'
         ],
 
         // 'users' => [
@@ -89,6 +100,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'accounts' => [
+            'provider' => 'accounts',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
