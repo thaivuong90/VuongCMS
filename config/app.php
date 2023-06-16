@@ -174,9 +174,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        \VuongCMS\Cms\CmsServiceProvider::class,
-        \VuongCMS\System\SystemServiceProvider::class,
-        \VuongCMS\Common\CommonServiceProvider::class,
+        \VuongCMS\System\Providers\AuthServiceProvider::class,
+        \VuongCMS\System\Providers\SystemServiceProvider::class,
 
     ],
 

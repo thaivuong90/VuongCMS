@@ -17,12 +17,16 @@ class CreateSystemsTable extends Migration
             $table->id();
             $table->string('name', 255)->nullable();
             $table->string('username', 255)->nullable();
-            $table->string('email', 255)->nullable();
-            $table->string('url', 255)->nullable();
+            $table->string('email', 255)->unique();
+            $table->string('slug', 255)->unique();
             $table->string('cccd', 20)->nullable();
             $table->string('phone', 20)->nullable();
+            $table->string('address', 255)->nullable();
+            $table->string('logo', 255)->nullable();
+            $table->string('token', 100)->nullable();
             $table->timestamp('expired_in')->nullable();
             $table->boolean('status');
+            $table->timestamp('confirmed_at')->nullable();
             $table->timestamp('created_at', 0)->nullable();
             $table->timestamp('updated_at', 0)->nullable();
             $table->timestamp('deleted_at', 0)->nullable();

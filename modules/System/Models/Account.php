@@ -1,6 +1,6 @@
 <?php
 
-namespace VuongCMS\Common\Models;
+namespace VuongCMS\System\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

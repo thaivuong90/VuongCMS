@@ -66,7 +66,6 @@ return [
         ],
         'accounts' => [
             'driver' => 'accounts',
-            'model' => \VuongCMS\Common\Models\Account::class,
         ],
 
         // 'users' => [

@@ -1,6 +1,6 @@
 <?php
 
-namespace VuongCMS\System;
+namespace VuongCMS\System\Providers;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\EloquentUserProvider;

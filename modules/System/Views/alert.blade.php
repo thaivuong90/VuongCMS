@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{{ trans('common.title.confirmation') }}</title>
+	<title>{{ $title }}</title>
 	<!-- Google Font: Source Sans Pro -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 	<!-- Font Awesome -->
@@ -19,31 +19,29 @@
 <body class="hold-transition login-page">
 	<div class="login-box">
 		<div class="login-logo">
-			<a href="#">{{ trans('common.title.confirmation') }}</a><br />
+			<a href="#">{{ $title }}</a><br />
 		</div>
 		<!-- /.login-logo -->
 		<div class="card">
 			<div class="card-body login-card-body">
-				<div class="alert alert-success">
-					<p>{{ trans('common.message.confirmation') }}</p>
+				<div class="alert alert-{{ $type }}">
+					<p>{{ $message }}</p>
 				</div>
 				@csrf
-				<div class="input-group mb-3">
-					<input type="text" name="email" class="form-control" placeholder="{{ trans('common.label.email') }}" value="{{ $email }}" disabled>
-					<div class="input-group-append">
-						<div class="input-group-text">
-							<span class="fas fa-envelope"></span>
-						</div>
-					</div>
-				</div>
 				<div class="row">
 					<!-- /.col -->
-					<div class="col-6">
-						<a href="{{ system_route('system.create') }}" class="btn btn-default btn-block">{{ trans('common.button.back') }}</a>
+					<div class="col-4">
+						<a href="{{ route('system.create') }}" class="btn btn-default btn-block">{{ trans('common.button.back') }}</a>
 					</div>
+					@if($type === 'success' && isset($slug))
 					<div class="col-6">
-						<button type="submit" class="btn btn-primary btn-block">{{ trans('common.button.ok') }}</button>
+						<a href="{{ system_route('system.login', ['slug' => $slug]) }}" class="btn btn-primary btn-block">{{ trans('common.button.signin') }}</a>
 					</div>
+					@else
+					<div class="col-8">
+						<a href="{{ system_route('system.confirmation') }}" class="btn btn-primary btn-block">{{ trans('common.button.activate_resend') }}</a>
+					</div>
+					@endif
 					<!-- /.col -->
 				</div>
 			</div>

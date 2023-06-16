@@ -1,30 +1,40 @@
 <?php
 
-namespace VuongCMS\Common\Models;
+namespace VuongCMS\System\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use VuongCMS\System\Models\Scopes\ActiveScope;
 
 class System extends Model
 {
     use HasFactory;
-
-    const DISABLE = 0;
-    const ENABLE = 1;
-    const NOT_CONFIRM = 2;
 
     protected $table = 'systems';
 
     protected $fillable = [
         'name',
         'username',
-        'url',
+        'slug',
         'email',
         'cccd',
         'phone',
+        'address',
+        'logo',
+        'token',
         'expired_in',
-        'status'
+        'status',
     ];
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new ActiveScope);
+    }
 
     public function accounts() {
         return $this->hasMany(Account::class);

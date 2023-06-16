@@ -19,7 +19,7 @@
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
-      <a href="#">{{ trans('common.title.login') }}</a><br />
+      <a href="#"><img src="{{ asset($system->logo) }}" /></a><br />
     </div>
     <!-- /.login-logo -->
     <div class="card">

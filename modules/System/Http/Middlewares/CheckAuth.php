@@ -1,6 +1,6 @@
 <?php
 
-namespace VuongCMS\System\Middlewares;
+namespace VuongCMS\System\Http\Middlewares;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 

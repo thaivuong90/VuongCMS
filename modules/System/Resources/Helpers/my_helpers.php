@@ -11,10 +11,11 @@ if (!function_exists('system_route')) {
    * @param  bool  $absolute
    * @return string
    */
-  function system_route($name, $parameters = [], $absolute = true)
+  function system_route($name, $parameters = [])
   {
-    $parameters['slug'] = request()->slug;
-    return app('url')->route($name, $parameters, $absolute);
+    $slugParam = request()->route('slug') ? request()->route('slug') : null;
+    if ($slugParam) $parameters['slug'] = $slugParam;
+    return app('url')->route($name, $parameters);
   }
 }
 

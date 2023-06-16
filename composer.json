@@ -28,7 +28,7 @@
             "VuongCMS\\": "modules/"
         },
         "files": [
-            "modules/Common/Helpers/my_helpers.php"
+            "modules/System/Resources/Helpers/my_helpers.php"
         ]
     },
     "autoload-dev": {

@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use VuongCMS\System\Controllers\InstallController;
-use VuongCMS\System\Controllers\SystemController;
+use VuongCMS\System\Http\Controllers\LoginController;
+use VuongCMS\System\Http\Controllers\SystemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,17 +16,19 @@ use VuongCMS\System\Controllers\SystemController;
 */
 
 Route::group(['prefix' => 'system', 'as' => 'system.', 'middleware' => 'web'], function () {
-    
-    Route::get('/create', [SystemController::class, 'create'])->name('create');
-    Route::get('/confirmation', [SystemController::class, 'confirmation'])->name('confirmation');
-    Route::post('/store', [SystemController::class, 'store'])->name('store');
-    
-    Route::group(['prefix' => '{slug}', 'middleware' => ['check.system']], function () {
-      Route::match(['post', 'get'], '/login', [SystemController::class, 'login'])->name('login');
-      Route::get('/forgot-password', [SystemController::class, 'forgotPassword'])->name('forgot_password');
-      Route::get('/logout', [SystemController::class, 'logout'])->name('logout');
-    });
-    Route::group(['prefix' => '{slug}', 'middleware' => ['check.auth', 'check.system']], function () {
-        Route::get('/dashboard', [SystemController::class, 'index'])->name('dashboard');
-    });
+
+  Route::get('/create', [SystemController::class, 'create'])->name('create');
+  Route::get('/confirmation/{token?}', [SystemController::class, 'confirmation'])->name('confirmation');
+  Route::match(['post', 'get'], '/resend', [SystemController::class, 'resend'])->name('resend');
+  Route::post('/store', [SystemController::class, 'store'])->name('store');
+
+  Route::group(['prefix' => '{slug}', 'middleware' => ['check.system']], function () {
+    Route::match(['post', 'get'], '/login', [LoginController::class, 'login'])->name('login');
+    Route::match(['post', 'get'], '/forgot-password', [LoginController::class, 'forgotPassword'])->name('forgot_password');
+    Route::get('/activate', [SystemController::class, 'activate'])->name('activate');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+  });
+  Route::group(['prefix' => '{slug}', 'middleware' => ['check.auth', 'check.system']], function () {
+    Route::get('/dashboard', [SystemController::class, 'index'])->name('dashboard');
+  });
 });
