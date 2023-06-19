@@ -1,10 +1,10 @@
 <?php
 
-namespace VuongCMS\System\Models;
+namespace VuongCMS\Shared\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use VuongCMS\System\Models\Scopes\ActiveScope;
+use VuongCMS\Shared\Models\Scopes\ActiveScope;
 
 class System extends Model
 {

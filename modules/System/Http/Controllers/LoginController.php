@@ -7,8 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use VuongCMS\System\Models\System;
-use VuongCMS\System\Models\Account;
+use VuongCMS\Shared\Models\System;
+use VuongCMS\Shared\Models\Account;
 
 class LoginController extends Controller
 {

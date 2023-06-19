@@ -4,8 +4,6 @@ namespace VuongCMS\System\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\Router;
-use VuongCMS\System\Http\Middlewares\CheckAuth;
-use VuongCMS\System\Http\Middlewares\CheckSystem;
 
 class SystemServiceProvider extends ServiceProvider
 {
@@ -16,6 +14,7 @@ class SystemServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind(\VuongCMS\System\Http\Interfaces\SystemInterface::class, \VuongCMS\System\Http\Services\SystemService::class);
     }
 
     /**
@@ -30,23 +29,22 @@ class SystemServiceProvider extends ServiceProvider
 
         // php artisan vendor:publish --tag=common.lang --force
         $this->publishes([
-            __DIR__.'/../Resources/Lang' => resource_path('lang'),
+            module_path('System/Resources/Lang') => resource_path('lang'),
         ], 'common.lang');
 
         // php artisan vendor:publish --tag=common.assets --force
         $this->publishes([
-            __DIR__.'/../Resources/Assets' => public_path('common'),
+            module_path('Resources/Assets') => public_path('common'),
         ], 'common.assets');
 
         // Load resource
-        $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');
-        $this->loadViewsFrom(__DIR__ . '/../Views', 'system');
-        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations', 'system');
+        $this->loadRoutesFrom(module_path('System/Routes/web.php'));
+        $this->loadViewsFrom(module_path('System/Views'), 'system');
+        $this->loadMigrationsFrom(module_path('Database/Migrations'), 'system');
 
         $router = $this->app->make(Router::class);
-        $router->aliasMiddleware('check.auth', CheckAuth::class);
-        $router->aliasMiddleware('check.system', CheckSystem::class);
+        $router->aliasMiddleware('check.auth', \VuongCMS\System\Http\Middlewares\CheckAuth::class);
+        $router->aliasMiddleware('check.system', \VuongCMS\System\Http\Middlewares\CheckSystem::class);
 
-        $this->app->bind(\App\Providers\AuthServiceProvider::class, \VuongCMS\System\Providers\AuthServiceProvider::class);
     }
 }

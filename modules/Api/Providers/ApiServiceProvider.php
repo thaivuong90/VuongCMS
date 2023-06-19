@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Providers;
+namespace VuongCMS\Api\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use VuongCMS\Api\Auth\Providers\AuthServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class ApiServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -13,9 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Register SystemServiceProvider
-        $this->app->register(\VuongCMS\Api\Providers\ApiServiceProvider::class);
-        $this->app->register(\VuongCMS\System\Providers\SystemServiceProvider::class);
+        $this->app->register(AuthServiceProvider::class);
+        $this->app->register(RouteServiceProvider::class);
     }
 
     /**

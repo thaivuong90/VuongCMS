@@ -1,12 +1,10 @@
 <?php
 
-namespace VuongCMS\System\Providers;
+namespace VuongCMS\Api\Auth\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use VuongCMS\System\Models\Account;
-use VuongCMS\System\Providers\AccountUserProvider;
+use VuongCMS\Shared\Models\Account;
 
 class AuthServiceProvider extends ServiceProvider
 {

@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
-use VuongCMS\System\Models\System;
+use VuongCMS\Shared\Models\System;
 
 class CheckSystem
 {

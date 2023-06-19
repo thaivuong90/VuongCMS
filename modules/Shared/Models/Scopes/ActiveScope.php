@@ -1,6 +1,6 @@
 <?php
 
-namespace VuongCMS\System\Models\Scopes;
+namespace VuongCMS\Shared\Models\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
